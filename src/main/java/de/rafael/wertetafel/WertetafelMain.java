@@ -10,8 +10,8 @@ public class WertetafelMain {
 
         String[] pListe = new String[3];
         pListe[0] = "2";
-        pListe[0] = "11";
-        pListe[0] = "15";
+        pListe[1] = "11";
+        pListe[2] = "15";
         wertetafel2 = new Wertetafel(pListe);
 
         wertetafel.ausgeben();

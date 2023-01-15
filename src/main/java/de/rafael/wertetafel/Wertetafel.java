@@ -14,6 +14,9 @@ public class Wertetafel {
         derStartwert = Double.parseDouble(pListe[0]);
         derEndwert = Double.parseDouble(pListe[1]);
         dieSchrittweite = Double.parseDouble(pListe[2]);
+        System.out.println(derStartwert);
+        System.out.println(derStartwert);
+        System.out.println(derStartwert);
     }
 
     public void ausgeben() {
