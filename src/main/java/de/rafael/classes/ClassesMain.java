@@ -1,10 +1,8 @@
-package de.rafael;
+package de.rafael.classes;
 
-public class Main {
+public class ClassesMain {
 
     public static void main(String[] args) {
-
-
 
 
 

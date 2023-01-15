@@ -1,4 +1,4 @@
-package de.rafael;
+package de.rafael.classes;
 
 public class Rechteck {
 
