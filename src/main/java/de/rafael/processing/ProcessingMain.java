@@ -16,7 +16,7 @@ public class ProcessingMain extends PApplet {
     @Override
     public void setup() {
 
-        int step = 10;
+        //int step = 10;
 
         /*
         for(int i = 0; i <= width; i += step) {
