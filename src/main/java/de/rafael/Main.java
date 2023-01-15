@@ -6,6 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Version 1
+
         Rechteck rechteck = new Rechteck(5, 6);
         float f = rechteck.fläche();
         float u = rechteck.umfang();
