@@ -11,9 +11,9 @@ public class Wertetafel {
             return;
         }
 
-        this.derStartwert = Double.parseDouble(pListe[0]);
-        this.derEndwert = Double.parseDouble(pListe[1]);
-        this.dieSchrittweite = Double.parseDouble(pListe[2]);
+        derStartwert = Double.parseDouble(pListe[0]);
+        derEndwert = Double.parseDouble(pListe[1]);
+        dieSchrittweite = Double.parseDouble(pListe[2]);
     }
 
     public void ausgeben() {
