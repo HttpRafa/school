@@ -6,6 +6,10 @@ public class WertetafelMain {
     private static Wertetafel table2;
 
     public static void main(String[] args) {
+        for(int i = 0; i < args.length; i++) {
+            System.out.println(args[i]);
+        }
+
         table1 = new Wertetafel(args);
 
         String[] pList = new String[3];
