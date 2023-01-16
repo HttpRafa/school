@@ -62,4 +62,37 @@ public class Wertetafel {
         return (x * x) - 2;
     }
 
+    /**
+     * This is a Java method that returns the value of a variable "start" with a data type of double.
+     * The keyword "public" means that the method can be accessed from outside of the class it is defined in.
+     * The "double" keyword specifies the data type of the value being returned, and "getStart()" is the name of the method.
+     * The code "return start;" returns the value of the "start" variable.
+     * @return start
+     */
+    public double getStart() {
+        return start;
+    }
+
+    /**
+     * This is a Java method that returns the value of a variable "end" with a data type of double.
+     * The keyword "public" means that the method can be accessed from outside of the class it is defined in.
+     * The "double" keyword specifies the data type of the value being returned, and "getEnd()" is the name of the method.
+     * The code "return end;" returns the value of the "end" variable.
+     * @return end
+     */
+    public double getEnd() {
+        return end;
+    }
+
+    /**
+     * This is a Java method that returns the value of a variable "step" with a data type of double.
+     * The keyword "public" means that the method can be accessed from outside of the class it is defined in.
+     * The "double" keyword specifies the data type of the value being returned, and "getStep()" is the name of the method.
+     * The code "return step;" returns the value of the "step" variable.
+     * @return step
+     */
+    public double getStep() {
+        return step;
+    }
+
 }
