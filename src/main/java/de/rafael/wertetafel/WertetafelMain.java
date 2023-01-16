@@ -12,7 +12,7 @@ public class WertetafelMain {
 
         table1 = new Wertetafel(args);
 
-        String[] pList = new String[3];
+        String[] pList = new String[3]; // new String[] {"2", "15", "1.5"}
         pList[0] = "2";
         pList[1] = "15";
         pList[2] = "1.5";

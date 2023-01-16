@@ -16,7 +16,7 @@ public class ProcessingMain extends PApplet {
     @Override
     public void setup() {
 
-        //int step = 10;
+        int step = 10;
 
         /*
         for(int i = 0; i <= width; i += step) {
@@ -31,7 +31,6 @@ public class ProcessingMain extends PApplet {
         }
          */
 
-        /*
         int h_width = width / 2;
         int h_height = height / 2;
 
@@ -45,7 +44,7 @@ public class ProcessingMain extends PApplet {
             stroke(255, 255, 0);
             line(h_width + i, h_height, h_width, height - i);
         }
-         */
+
     }
 
     @Override
