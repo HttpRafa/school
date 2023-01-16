@@ -14,11 +14,11 @@ public class WertetafelMain {
         pListe[2] = "1.5";
         wertetafel2 = new Wertetafel(pListe);
 
-        wertetafel.ausgeben();
+        wertetafel.print();
 
         System.out.println("-----------------------------------");
 
-        wertetafel2.ausgeben();
+        wertetafel2.print();
     }
 
 }

@@ -2,25 +2,30 @@ package de.rafael.wertetafel;
 
 public class Wertetafel {
 
-    private double derStartwert;
-    private double derEndwert;
-    private double dieSchrittweite;
+    private double start;
+    private double end;
+    private double step;
 
     public Wertetafel(String[] pListe) {
         if(pListe.length < 3) {
             return;
         }
 
-        derStartwert = Double.parseDouble(pListe[0]);
-        derEndwert = Double.parseDouble(pListe[1]);
-        dieSchrittweite = Double.parseDouble(pListe[2]);
-        System.out.println("Start: " + derStartwert);
-        System.out.println("Ende: " + derEndwert);
-        System.out.println("Schritt: " + dieSchrittweite);
+        start = Double.parseDouble(pListe[0]);
+        end = Double.parseDouble(pListe[1]);
+        step = Double.parseDouble(pListe[2]);
+        System.out.println("Start: " + start);
+        System.out.println("End: " + end);
+        System.out.println("Step: " + step);
     }
 
-    public void ausgeben() {
-        for(double x = derStartwert; x <= derEndwert; x += dieSchrittweite) {
+    public void print() {
+        if(end <= 0 || step <= 0) {
+            System.out.println("End or Step is zero | end: " + end + " step: " + step);
+            return;
+        }
+
+        for(double x = start; x <= end; x += step) {
             double y = f(x);
 
             System.out.println(x + " | " + y);
