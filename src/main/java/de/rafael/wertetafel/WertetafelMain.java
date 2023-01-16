@@ -2,23 +2,23 @@ package de.rafael.wertetafel;
 
 public class WertetafelMain {
 
-    private static Wertetafel wertetafel;
-    private static Wertetafel wertetafel2;
+    private static Wertetafel table1;
+    private static Wertetafel table2;
 
     public static void main(String[] args) {
-        wertetafel = new Wertetafel(args);
+        table1 = new Wertetafel(args);
 
-        String[] pListe = new String[3];
-        pListe[0] = "2";
-        pListe[1] = "15";
-        pListe[2] = "1.5";
-        wertetafel2 = new Wertetafel(pListe);
+        String[] pList = new String[3];
+        pList[0] = "2";
+        pList[1] = "15";
+        pList[2] = "1.5";
+        table2 = new Wertetafel(pList);
 
-        wertetafel.print();
+        table1.print();
 
         System.out.println("-----------------------------------");
 
-        wertetafel2.print();
+        table2.print();
     }
 
 }
