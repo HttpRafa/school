@@ -11,4 +11,5 @@ repositories {
 
 dependencies {
     implementation('org.processing:core:3.3.7')
+    implementation 'org.jetbrains:annotations:23.0.0'
 }

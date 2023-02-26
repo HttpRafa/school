@@ -1,5 +1,7 @@
 package de.rafael.wertetafel;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Wertetafel {
 
     private double start;
@@ -20,7 +22,7 @@ public class Wertetafel {
      * " ist auskommentiert und hat keine Funktion in diesem Konstruktor.
      * @param pList String Array
      */
-    public Wertetafel(String[] pList) {
+    public Wertetafel(String @NotNull [] pList) {
         /*
         Nicht wichtig
 
@@ -29,7 +31,7 @@ public class Wertetafel {
         }
          */
 
-        if(pList.length >= 3) {
+        if (pList.length >= 3) {
             start = Double.parseDouble(pList[0]);
             end = Double.parseDouble(pList[1]);
             step = Double.parseDouble(pList[2]);
