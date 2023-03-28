@@ -1,3 +1,4 @@
 cmd /c E:\development\Assembly\_VSCode_stm32_Assembler\data\xpack_openocd\bin\openocd.exe -f E:\development\Assembly\_VSCode_stm32_Assembler\data\xpack_openocd\scripts\interface\stlink.cfg -f E:\development\Assembly\_VSCode_stm32_Assembler\data\xpack_openocd\scripts\target\stm32l1.cfg -c "program main.elf verify reset exit"
 arm-none-eabi-objdump -d armrust
+/home/rafael/Desktop/programs/xpack-openocd-0.12.0-1/bin/openocd -f /home/rafael/Desktop/programs/xpack-openocd-0.12.0-1/openocd/scripts/interface/stlink.cfg -f /home/rafael/Desktop/programs/xpack-openocd-0.12.0-1/openocd/scripts/target/stm32l1.cfg -c "program main.elf verify reset exit"
 cargo rustc -- -C link-arg=--script=./linker.ld
