@@ -6,33 +6,36 @@ use core::panic::PanicInfo;
 use core::ptr::write_volatile;
 
 #[no_mangle]
+#[link_section = ".text._start"]
 pub extern "C" fn _start() -> ! {
+    let led_base: u32 = 0x40020000;
+    let led_state = led_base | 0x14;
+
     unsafe {
         asm!(
-            ".syntax unified",
-            ".cpu cortex-m3",
-            ".thumb",
-            ".word 0x20000400",
-            ".word 0x080000ed",
-            ".space 0xe4",
-            "ldr r1, =0x40023800",
-            "ldr r0, =0x00008007",
-            "str r0, [r1, #0x1C]",
-
-            "ldr r1, =0x40020000",
-            "ldr r0, =0xA8000400",
-            "str r0, [r1, #0x00]",
-
-            "ldr r0, =0x20",
-            "ldr r1, =0x40020000",
-            "str r0, [r1, #0x14]"
+        "ldr r1, =0x40023800",
+        "ldr r0, =0x00008007",
+        "str r0, [r1, #0x1C]", // Enable GPIO: A, B, C
+        "ldr r1, =0x40020000",
+        "ldr r0, =0xA8000400",
+        "str r0, [r1, #0x00]", // Set LED as output
+        /*"ldr r0, =0x20",
+        "ldr r1, =0x40020000",
+        "str r0, [r1, #0x14]"*/ // Turn LED on
         );
-        /*{
-            write_volatile(0x4002381C as *mut u32, 0x00008007);
-            write_volatile(0x40020000 as *mut u32, 0xA8000400); // Turn into output
-        }*/
+
         loop {
-            write_volatile((0x4002_0014 as *mut u32), 0x0);
+            write_volatile(led_state as *mut u32, 1 << 5); // Turn LED on
+
+            for _ in 0..65000 { // Wait
+                asm!("nop");
+            }
+
+            write_volatile(led_state as *mut u32, 0x00); // Turn LED off
+
+            for _ in 0..65000 { // Wait
+                asm!("nop");
+            }
         }
     }
 }
