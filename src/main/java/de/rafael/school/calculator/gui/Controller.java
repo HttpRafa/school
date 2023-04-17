@@ -1,18 +1,17 @@
 package de.rafael.school.calculator.gui;
 
-import de.rafael.school.calculator.Main;
+import de.rafael.school.calculator.errors.MissingValueException;
 import de.rafael.school.calculator.logic.StackCalculator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
-import java.util.Stack;
 
 public class Controller {
 
-    private final Stack<Double> stack = new Stack<>();
+    private final StackCalculator stackCalculator = new StackCalculator();
 
     @FXML
     private Label errorLabel;
@@ -40,9 +39,12 @@ public class Controller {
     private TextField stackI3;
 
     @FXML
-    protected void add(ActionEvent event) {
-        StackCalculator.add(stack);
-        refreshFields();
+    public void initialize() {
+        this.numberInput.setOnKeyPressed(event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                enter(null);
+            }
+        });
     }
 
     @FXML
@@ -52,39 +54,83 @@ public class Controller {
     }
 
     @FXML
-    protected void div(ActionEvent event) {
-        StackCalculator.div(stack);
-        refreshFields();
-    }
-
-    @FXML
-    protected void drop(ActionEvent event) {
-        stack.pop();
-        refreshFields();
-    }
-
-    @FXML
-    protected void enter(ActionEvent event) {
-        String input = numberInput.getText();
-        numberInput.clear();
+    protected void add(ActionEvent event) {
         try {
-            double value = Double.parseDouble(input);
-            stack.push(value);
-        } catch (Exception exception) {
-            errorLabel.setText(exception.getMessage());
+            stackCalculator.add();
+        } catch (MissingValueException exception) {
+            errorLabel.setText(exception.toString());
+        }
+        refreshFields();
+    }
+
+    @FXML
+    protected void div(ActionEvent event) {
+        try {
+            stackCalculator.div();
+        } catch (MissingValueException exception) {
+            errorLabel.setText(exception.toString());
         }
         refreshFields();
     }
 
     @FXML
     protected void mul(ActionEvent event) {
-        StackCalculator.mul(stack);
+        try {
+            stackCalculator.mul();
+        } catch (MissingValueException exception) {
+            errorLabel.setText(exception.toString());
+        }
         refreshFields();
     }
 
     @FXML
     protected void sub(ActionEvent event) {
-        StackCalculator.sub(stack);
+        try {
+            stackCalculator.sub();
+        } catch (MissingValueException exception) {
+            errorLabel.setText(exception.toString());
+        }
+        refreshFields();
+    }
+
+    @FXML
+    protected void drop(ActionEvent event) {
+        stackCalculator.pop();
+        refreshFields();
+    }
+
+    @FXML
+    protected void enter(ActionEvent event) {
+        String input = numberInput.getText().trim();
+        numberInput.clear();
+
+        // Check if the value is + or something else
+        if(input.length() == 1) {
+            switch (input) {
+                case "+" -> {
+                    add(null);
+                    return;
+                }
+                case "-" -> {
+                    sub(null);
+                    return;
+                }
+                case "*" -> {
+                    mul(null);
+                    return;
+                }
+                case "/" -> {
+                    div(null);
+                    return;
+                }
+            }
+        }
+
+        try {
+            stackCalculator.push(Double.parseDouble(input));
+        } catch (Exception exception) {
+            errorLabel.setText(exception.toString());
+        }
         refreshFields();
     }
 
@@ -98,25 +144,37 @@ public class Controller {
         try {
             numberInput.setText(String.valueOf(-Double.parseDouble(numberInput.getText())));
         } catch (Exception exception) {
-            errorLabel.setText(exception.getMessage());
+            errorLabel.setText(exception.toString());
         }
     }
 
     @FXML
     protected void expressionChanged(KeyEvent event) {
-        StackCalculator.eval(expressionInput.getText()).ifPresent(value -> {
-            expressionOutput.setText(value + "");
-        });
+        try {
+            expressionOutput.setText("");
+
+            StackCalculator.eval(expressionInput.getText()).ifPresent(value -> {
+                expressionOutput.setText(value + "");
+            });
+        } catch (MissingValueException exception) {
+            errorLabel.setText(exception.toString());
+        }
     }
 
     private void refreshFields() {
-        for (int i = 0; i <= 3; i++) {
-            var value = StackCalculator.at(stack, i);
+        int amount = 3;
+        for (int i = 0; i <= amount; i++) {
+            int vI = stackCalculator.size() - 1 - i;
             try {
                 TextField textField = (TextField) getClass().getDeclaredField("stackI" + i).get(this);
-                textField.setText((value.isPresent() ? value.get() : "") + "");
+                if(vI >= 0) {
+                    var value = stackCalculator.at(vI);
+                    textField.setText((value.isPresent() ? value.get() : "") + "");
+                } else {
+                    textField.setText("");
+                }
             } catch (Exception exception) {
-                errorLabel.setText(exception.getMessage());
+                errorLabel.setText(exception.toString());
                 exception.printStackTrace();
             }
         }

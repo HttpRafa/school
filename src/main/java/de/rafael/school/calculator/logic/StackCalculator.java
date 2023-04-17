@@ -1,73 +1,104 @@
 package de.rafael.school.calculator.logic;
 
+import de.rafael.school.calculator.errors.MissingValueException;
+
 import java.util.Optional;
 import java.util.Stack;
 
 public class StackCalculator {
 
-    public static Optional<Double> eval(String expression) {
-        Stack<Double> stack = new Stack<>();
+    private final Stack<Double> stack = new Stack<>();
+
+    public int size() {
+        return stack.size();
+    }
+
+    public boolean empty() {
+        return stack.empty();
+    }
+
+    public double push(double value) {
+        return stack.push(value);
+    }
+
+    public Optional<Double> pop() {
+        if(stack.empty()) return Optional.empty();
+        return Optional.of(stack.pop());
+    }
+
+    public void add() throws MissingValueException {
+        if(stack.size() < 2) throw new MissingValueException(MathAction.ADD);
+        double b = stack.pop();
+        double a = stack.pop();
+        stack.push(a + b);
+    }
+
+    public void sub() throws MissingValueException {
+        if(stack.size() < 2) throw new MissingValueException(MathAction.SUB);
+        double b = stack.pop();
+        double a = stack.pop();
+        stack.push(a - b);
+    }
+
+    public void mul() throws MissingValueException {
+        if(stack.size() < 2) throw new MissingValueException(MathAction.MUL);
+        double b = stack.pop();
+        double a = stack.pop();
+        stack.push(a * b);
+    }
+
+    public void div() throws MissingValueException {
+        if(stack.size() < 2) throw new MissingValueException(MathAction.DIV);
+        double b = stack.pop();
+        double a = stack.pop();
+        stack.push(a / b);
+    }
+
+    public Optional<Double> at(int index) {
+        if(index >= stack.size()) {
+            return Optional.empty();
+        }
+        return Optional.of(stack.get(index));
+    }
+
+    public enum MathAction {
+        ADD,
+        SUB,
+        MUL,
+        DIV
+    }
+
+    public static Optional<Double> eval(String expression) throws MissingValueException {
+        StackCalculator stackCalculator = new StackCalculator();
         String[] tokens = expression.split(" ");
         for (String token : tokens) {
             switch (token.trim()) {
                 case "+" -> {
-                    add(stack);
+                    stackCalculator.add();
                 }
                 case "-" -> {
-                    sub(stack);
+                    stackCalculator.sub();
                 }
                 case "*" -> {
-                    mul(stack);
+                    stackCalculator.mul();
                 }
                 case "/" -> {
-                    div(stack);
+                    stackCalculator.div();
                 }
                 default -> {
                     try {
-                        double value = Double.parseDouble(token);
-                        stack.push(value);
+                        stackCalculator.push(Double.parseDouble(token));
                     } catch (Exception exception) {
                         return Optional.empty();
                     }
                 }
             }
         }
-        if(stack.empty()) {
+        if(stackCalculator.empty()) {
             return Optional.empty();
         } else {
-            return Optional.of(stack.pop());
+            return stackCalculator.pop();
         }
-    }
-
-    public static void add(Stack<Double> stack) {
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a + b);
-    }
-
-    public static void sub(Stack<Double> stack) {
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a - b);
-    }
-
-    public static void mul(Stack<Double> stack) {
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a * b);
-    }
-
-    public static void div(Stack<Double> stack) {
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a + b);
-    }
-
-    public static Optional<Double> at(Stack<Double> stack, int index) {
-        if(index >= stack.size()) {
-            return Optional.empty();
-        }
-        return Optional.of(stack.get(index));
     }
 
 }
