@@ -29,20 +29,18 @@ pub extern "C" fn _start() -> ! {
         loop {
             write_volatile((led_base_address | 0x14) as *mut u32, 1 << 5); // Turn LED on
 
-            for _ in 0..65000 { // Wait
+            for _ in 0..65000 {
                 asm!("nop");
             }
 
             write_volatile((led_base_address | 0x14) as *mut u32, 0x00); // Turn LED off
 
-            for _ in 0..65000 { // Wait
+            for _ in 0..65000 {
                 asm!("nop");
             }
         }
     }
 }
-
-
 
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
