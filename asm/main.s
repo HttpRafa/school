@@ -9,7 +9,7 @@ ldr r0, =0xA8001000 // PinB6
 str r0, [r1, #0x00] // Write to address
 
 main:
-  ldr r3, =0xFFFF // time to stay on and wait
+  ldr r3, =0x124F8 // time to stay on and wait
   ldr r2, =0x40020000 // Port A
   ldr r1, =0xE0 // PinA5 - 7 off
   ldr r0, =0xC0 // PinA5 on
