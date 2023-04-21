@@ -1,34 +1,34 @@
 .include "startup.s"
 
 ldr r1, =0x40020000 // Port A 
-ldr r0, =0xA8005400 // Pin5 - 7
+ldr r0, =0xA8005400 // PinA5 - 7
 str r0, [r1, #0x00] // Write to address
 
 ldr r1, =0x40020400 // Port B
 //ldr r0, =0xA8000400 // 
-ldr r0, =0xA8010000 // Pin8
+ldr r0, =0xA8001000 // PinB6
 str r0, [r1, #0x00] // Write to address
 
 main:
   ldr r2, =0xFFFF // time to stay on and wait
   ldr r1, =0x40020000 // Port A
-  ldr r0, =0x20 // Pin5
+  ldr r0, =0x20 // PinA5
   bl blink
 
   bl wait
 
-  ldr r0, =0x40 // Pin6
+  ldr r0, =0x40 // PinA6
   bl blink
 
   bl wait
 
-  ldr r0, =0x80 // Pin7
+  ldr r0, =0x80 // PinA7
   bl blink
 
   bl wait
 
   ldr r1, =0x40020400 // Port B
-  ldr r0, =0x100 // Pin8
+  ldr r0, =0x40 // PinB6
   bl blink
 
   bl wait
@@ -39,7 +39,7 @@ blink: // r0-> led values | r1 port address | r2 time to stay on
   str r0, [r1, #0x14] // Write r0 into base address with offset 0x14 | On
   mov r0, r2 // Copy r2 to r0
   bl wait // Execute wait
-  mov r0, #0 // Overwrite r0 with 0 | Off
+  ldr r0, =0x00 // Overwrite r0 with 0 | Off
   str r0, [r1, #0x14] // Write r0 into base address with offset 0x14 | Off
   bx r14
 
