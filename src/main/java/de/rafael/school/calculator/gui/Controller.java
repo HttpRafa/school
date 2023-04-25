@@ -49,7 +49,9 @@ public class Controller {
 
     @FXML
     protected void clear(ActionEvent event) {
+        stackCalculator.clear();
         numberInput.setText("");
+        numberInput.requestFocus();
         refreshFields();
     }
 
@@ -60,6 +62,7 @@ public class Controller {
         } catch (MissingValueException exception) {
             errorLabel.setText(exception.toString());
         }
+        numberInput.requestFocus();
         refreshFields();
     }
 
@@ -70,6 +73,7 @@ public class Controller {
         } catch (MissingValueException exception) {
             errorLabel.setText(exception.toString());
         }
+        numberInput.requestFocus();
         refreshFields();
     }
 
@@ -80,6 +84,7 @@ public class Controller {
         } catch (MissingValueException exception) {
             errorLabel.setText(exception.toString());
         }
+        numberInput.requestFocus();
         refreshFields();
     }
 
@@ -90,18 +95,21 @@ public class Controller {
         } catch (MissingValueException exception) {
             errorLabel.setText(exception.toString());
         }
+        numberInput.requestFocus();
         refreshFields();
     }
 
     @FXML
     protected void drop(ActionEvent event) {
         stackCalculator.pop();
+        numberInput.requestFocus();
         refreshFields();
     }
 
     @FXML
     protected void enter(ActionEvent event) {
         String input = numberInput.getText().trim();
+        numberInput.requestFocus();
         numberInput.clear();
 
         // Check if the value is + or something else
@@ -123,12 +131,28 @@ public class Controller {
                     div(null);
                     return;
                 }
+                case "d" -> {
+                    drop(null);
+                    return;
+                }
+                case "c" -> {
+                    clear(null);
+                    return;
+                }
+                case "s" -> {
+                    swap(null);
+                    return;
+                }
             }
         }
 
         try {
             stackCalculator.push(Double.parseDouble(input));
-        } catch (Exception exception) {
+        } catch(NumberFormatException numberFormatException) {
+            errorLabel.setText("Please enter a valid number");
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            errorLabel.setText("The stack is already full");
+        } catch(Exception exception) {
             errorLabel.setText(exception.toString());
         }
         refreshFields();
@@ -136,7 +160,13 @@ public class Controller {
 
     @FXML
     protected void swap(ActionEvent event) {
-
+        try {
+            stackCalculator.swap();
+        } catch(Exception exception) {
+            errorLabel.setText(exception.toString());
+        }
+        numberInput.requestFocus();
+        refreshFields();
     }
 
     @FXML
@@ -146,6 +176,7 @@ public class Controller {
         } catch (Exception exception) {
             errorLabel.setText(exception.toString());
         }
+        numberInput.requestFocus();
     }
 
     @FXML

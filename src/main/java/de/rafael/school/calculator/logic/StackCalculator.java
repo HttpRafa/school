@@ -2,70 +2,121 @@ package de.rafael.school.calculator.logic;
 
 import de.rafael.school.calculator.errors.MissingValueException;
 
+import java.util.Arrays;
 import java.util.Optional;
-import java.util.Stack;
 
 public class StackCalculator {
 
-    private final Stack<Double> stack = new Stack<>();
+    private int stackPointer = 0;
+    private int stackSize = 4;
+    private double[] stack = new double[stackSize];
+
+    public void clear() {
+        stackPointer = 0;
+    }
 
     public int size() {
-        return stack.size();
+        return stackPointer;
     }
 
     public boolean empty() {
-        return stack.empty();
+        return stackPointer == 0;
     }
 
-    public double push(double value) {
-        return stack.push(value);
+    public void push(double value) {
+        stack[stackPointer] = value;
+        stackPointer++;
+
     }
 
     public Optional<Double> pop() {
-        if(stack.empty()) return Optional.empty();
-        return Optional.of(stack.pop());
-    }
-
-    public void add() throws MissingValueException {
-        if(stack.size() < 2) throw new MissingValueException(MathAction.ADD);
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a + b);
-    }
-
-    public void sub() throws MissingValueException {
-        if(stack.size() < 2) throw new MissingValueException(MathAction.SUB);
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a - b);
-    }
-
-    public void mul() throws MissingValueException {
-        if(stack.size() < 2) throw new MissingValueException(MathAction.MUL);
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a * b);
-    }
-
-    public void div() throws MissingValueException {
-        if(stack.size() < 2) throw new MissingValueException(MathAction.DIV);
-        double b = stack.pop();
-        double a = stack.pop();
-        stack.push(a / b);
+        if(empty()) return Optional.empty();
+        stackPointer--;
+        double value = stack[stackPointer];
+        return Optional.of(value);
     }
 
     public Optional<Double> at(int index) {
-        if(index >= stack.size()) {
+        if(index > stackPointer) {
             return Optional.empty();
         }
-        return Optional.of(stack.get(index));
+        return Optional.of(stack[index]);
+    }
+
+    public void set(int index, double value) {
+        stack[index] = value;
+    }
+
+    public void add() throws MissingValueException {
+        if(size() < 2) {
+            throw new MissingValueException(MathAction.DIV);
+        }
+        Optional<Double> b = pop();
+        var a = pop();
+        if(a.isPresent() && b.isPresent()) {
+            push(a.get() + b.get());
+        } else {
+            throw new MissingValueException(MathAction.DIV);
+        }
+    }
+
+    public void sub() throws MissingValueException {
+        if(size() < 2) {
+            throw new MissingValueException(MathAction.SUB);
+        }
+        var b = pop();
+        var a = pop();
+        if(a.isPresent() && b.isPresent()) {
+            push(a.get() - b.get());
+        } else {
+            throw new MissingValueException(MathAction.SUB);
+        }
+    }
+
+    public void mul() throws MissingValueException {
+        if(size() < 2) {
+            throw new MissingValueException(MathAction.MUL);
+        }
+        var b = pop();
+        var a = pop();
+        if(a.isPresent() && b.isPresent()) {
+            push(a.get() * b.get());
+        } else {
+            throw new MissingValueException(MathAction.MUL);
+        }
+    }
+
+    public void div() throws MissingValueException {
+        if(size() < 2) {
+            throw new MissingValueException(MathAction.DIV);
+        }
+        var b = pop();
+        var a = pop();
+        if(a.isPresent() && b.isPresent()) {
+            push(a.get() / b.get());
+        } else {
+            throw new MissingValueException(MathAction.DIV);
+        }
+    }
+
+    public void swap() throws MissingValueException {
+        Optional<Double> i0 = at(0);
+        Optional<Double> i1 = at(1);
+        if(i0.isPresent() && i1.isPresent()) {
+            set(1, i0.get());
+            set(0, i1.get());
+        } else {
+            throw new MissingValueException(MathAction.SWAP);
+        }
     }
 
     public enum MathAction {
         ADD,
         SUB,
         MUL,
-        DIV
+        DIV,
+
+        SWAP
     }
 
     public static Optional<Double> eval(String expression) throws MissingValueException {

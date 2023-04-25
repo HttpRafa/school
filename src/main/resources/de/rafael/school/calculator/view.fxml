@@ -11,8 +11,8 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.rafael.school.calculator.gui.Controller">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="414.0" minWidth="10.0" prefWidth="381.5" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="218.5" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="381.5" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="218.5" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -39,25 +39,37 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="stackI3" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <TextField fx:id="stackI3" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="3">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </TextField>
-                  <TextField fx:id="stackI2" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
+                  <TextField fx:id="stackI2" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </TextField>
-                  <TextField fx:id="stackI1" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="2">
+                  <TextField fx:id="stackI1" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </TextField>
-                  <TextField fx:id="stackI0" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="3">
+                  <TextField fx:id="stackI0" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="0" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </TextField>
                </children>
             </GridPane>
