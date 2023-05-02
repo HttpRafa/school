@@ -51,7 +51,7 @@ public class StackCalculator {
         if(size() < 2) {
             throw new MissingValueException(MathAction.DIV);
         }
-        Optional<Double> b = pop();
+        var b = pop();
         var a = pop();
         if(a.isPresent() && b.isPresent()) {
             push(a.get() + b.get());
