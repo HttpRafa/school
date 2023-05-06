@@ -20,4 +20,5 @@ public class MissingValueException extends Exception {
     public String toString() {
         return mathAction.name() + " action failed because of missing values in the stack";
     }
+    
 }
