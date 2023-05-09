@@ -2,14 +2,13 @@ package de.rafael.school.calculator.logic;
 
 import de.rafael.school.calculator.errors.MissingValueException;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 public class StackCalculator {
 
     private int stackPointer = 0;
-    private int stackSize = 4;
-    private double[] stack = new double[stackSize];
+    private final int stackSize = 4;
+    private final double[] stack = new double[stackSize];
 
     public void clear() {
         stackPointer = 0;
@@ -26,7 +25,6 @@ public class StackCalculator {
     public void push(double value) {
         stack[stackPointer] = value;
         stackPointer++;
-
     }
 
     public Optional<Double> pop() {

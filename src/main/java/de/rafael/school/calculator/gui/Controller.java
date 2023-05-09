@@ -113,7 +113,16 @@ public class Controller {
         numberInput.clear();
 
         // Check if the value is + or something else
-        if(input.length() == 1) {
+        if((input.isEmpty() || input.isBlank())) {
+            try {
+                stackCalculator.at(0).ifPresent(stackCalculator::push);
+                refreshFields();
+                return;
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+                errorLabel.setText("The stack is already full");
+                return;
+            }
+        } else if(input.length() == 1) {
             switch (input) {
                 case "+" -> {
                     add(null);
