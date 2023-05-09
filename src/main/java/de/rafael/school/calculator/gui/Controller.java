@@ -101,7 +101,11 @@ public class Controller {
 
     @FXML
     protected void drop(ActionEvent event) {
-        stackCalculator.pop();
+        if(numberInput.getText().isBlank() || numberInput.getText().isEmpty()) {
+            stackCalculator.pop();
+        } else {
+            numberInput.clear();
+        }
         numberInput.requestFocus();
         refreshFields();
     }
