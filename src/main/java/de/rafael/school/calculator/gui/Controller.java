@@ -1,5 +1,7 @@
 package de.rafael.school.calculator.gui;
 
+import java.util.Optional;
+
 import de.rafael.school.calculator.errors.MissingValueException;
 import de.rafael.school.calculator.logic.StackCalculator;
 import javafx.event.ActionEvent;
@@ -128,34 +130,27 @@ public class Controller {
             }
         } else if(input.length() == 1) {
             switch (input) {
-                case "+" -> {
+                case "+":
                     add(null);
                     return;
-                }
-                case "-" -> {
+                case "-":
                     sub(null);
                     return;
-                }
-                case "*" -> {
+                case "*":
                     mul(null);
                     return;
-                }
-                case "/" -> {
+                case "/":
                     div(null);
                     return;
-                }
-                case "d" -> {
+                case "d":
                     drop(null);
                     return;
-                }
-                case "c" -> {
+                case "c":
                     clear(null);
                     return;
-                }
-                case "s" -> {
+                case "s":
                     swap(null);
                     return;
-                }
             }
         }
 
@@ -212,7 +207,7 @@ public class Controller {
             try {
                 TextField textField = (TextField) getClass().getDeclaredField("stackI" + i).get(this);
                 if(vI >= 0) {
-                    var value = stackCalculator.at(vI);
+                    Optional<Double> value = stackCalculator.at(vI);
                     textField.setText((value.isPresent() ? value.get() : "") + "");
                 } else {
                     textField.setText("");

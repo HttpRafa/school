@@ -1,4 +1,4 @@
-package de.rafael.school.calculator.errors;
+package de.rafael.school.calculator.error;
 
 import de.rafael.school.calculator.logic.StackCalculator;
 

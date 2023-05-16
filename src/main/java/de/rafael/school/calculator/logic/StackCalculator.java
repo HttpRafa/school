@@ -49,8 +49,8 @@ public class StackCalculator {
         if(size() < 2) {
             throw new MissingValueException(MathAction.DIV);
         }
-        var b = pop();
-        var a = pop();
+        Optional<Double> b = pop();
+        Optional<Double> a = pop();
         if(a.isPresent() && b.isPresent()) {
             push(a.get() + b.get());
         } else {
@@ -62,8 +62,8 @@ public class StackCalculator {
         if(size() < 2) {
             throw new MissingValueException(MathAction.SUB);
         }
-        var b = pop();
-        var a = pop();
+        Optional<Double> b = pop();
+        Optional<Double> a = pop();
         if(a.isPresent() && b.isPresent()) {
             push(a.get() - b.get());
         } else {
@@ -75,8 +75,8 @@ public class StackCalculator {
         if(size() < 2) {
             throw new MissingValueException(MathAction.MUL);
         }
-        var b = pop();
-        var a = pop();
+        Optional<Double> b = pop();
+        Optional<Double> a = pop();
         if(a.isPresent() && b.isPresent()) {
             push(a.get() * b.get());
         } else {
@@ -88,8 +88,8 @@ public class StackCalculator {
         if(size() < 2) {
             throw new MissingValueException(MathAction.DIV);
         }
-        var b = pop();
-        var a = pop();
+        Optional<Double> b = pop();
+        Optional<Double> a = pop();
         if(a.isPresent() && b.isPresent()) {
             push(a.get() / b.get());
         } else {
@@ -122,25 +122,25 @@ public class StackCalculator {
         String[] tokens = expression.split(" ");
         for (String token : tokens) {
             switch (token.trim()) {
-                case "+" -> {
+                case "+":
                     stackCalculator.add();
-                }
-                case "-" -> {
+                    break;
+                case "-":
                     stackCalculator.sub();
-                }
-                case "*" -> {
+                    break;
+                case "*":
                     stackCalculator.mul();
-                }
-                case "/" -> {
+                    break;
+                case "/":
                     stackCalculator.div();
-                }
-                default -> {
+                    break;
+                default:
                     try {
                         stackCalculator.push(Double.parseDouble(token));
                     } catch (Exception exception) {
                         return Optional.empty();
                     }
-                }
+                    break;
             }
         }
         if(stackCalculator.empty()) {
